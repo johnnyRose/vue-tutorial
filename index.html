@@ -1,0 +1,85 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Vue.js Tutorial</title>
+</head>
+
+<body>
+    <!--
+        Vue is easy to add to existing apps without requiring any restructuring
+        (production version: https://cdn.jsdelivr.net/npm/vue@2)
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+
+    <!--
+        v-bind is a directive. Directives are prefixed with "v-".
+        Other directives include: v-if, v-for, v-model, and others.
+    -->
+    <div id="basic-example" v-bind:title="title">
+        {{ message }}
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#basic-example',
+            data: {
+                message: 'Hello Vue!',
+                title: 'You loaded this page on ' + new Date().toLocaleString()
+            }
+        });
+    </script>
+
+    <hr />
+
+    <!--
+        2-way binding is easy with v-model
+    -->
+    <div id="two-way-binding">
+        <p>{{ message }}</p>
+        <input v-model="message" />
+    </div>
+    <script>
+        var input = new Vue({
+            el: '#two-way-binding',
+            data: {
+                message: 'testing 2 way binding'
+            }
+        });
+    </script>
+
+    <hr />
+
+    <!--
+        Custom components can be defined
+    -->
+    <div id="component-test">
+        <ol>
+            <todo-item
+                v-for="item in groceryList"
+                v-bind:todo="item"
+                v-bind:key="item.id"
+            ></todo-item>
+        </ol>
+    </div>
+    <script>
+        Vue.component('todo-item', {
+            props: ['todo'],
+            template: '<li>{{ todo.text }}</li>'
+        });
+
+        var componentTest = new Vue({
+            el: '#component-test',
+            data: {
+                groceryList: [
+                    { id: 0, text: 'Vegetables' },
+                    { id: 1, text: 'Cheese' },
+                    { id: 2, text: 'Bread' },
+                ]
+            }
+        });
+    </script>
+</body>
+</html>
